@@ -1,4 +1,5 @@
 import argparse
+import csv
 
 class Applicant:
     def __init__(self, name, score, pref, date):
@@ -96,8 +97,9 @@ def main():
         if not matched:
             max_applicant.assignment = waitlist
 
-        print(f"Name: {max_applicant.name} Date Submitted: {max_applicant.date} "
-              f"Score: {max_applicant.score} Assignment: {max_applicant.assignment}")
+        print("Name: {:<20}, Date Submitted: {:<10}, Score: {:<10.2f}, Assignment: {}".format(
+            max_applicant.name, max_applicant.date, max_applicant.score, max_applicant.assignment
+        ))
 
 
 if __name__ == "__main__":
