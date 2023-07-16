@@ -17,4 +17,7 @@ def assign_sentiment_scores(input_csv_path, output_csv_path):
 
     # Iterate through the DataFrame and calculate sentiment scores for each question
     for col, question in questions.items():
-        df[col + '_score'] = df[col].apply(lambda text: sentiment_analyzer(question + ' ' + text)[0]['score'] * 10.0)
+        df[col + '_score'] = df[col].apply(lambda text: sentiment_analyzer(question + ' ' + text)[0]['score'] * 20.0)
+
+    # Write the filtered data with unique keywords to a new CSV file
+    df.to_csv(output_csv_path, index=False)
