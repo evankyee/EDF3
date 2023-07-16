@@ -1,4 +1,5 @@
 import pandas as pd
+import csv
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
 def compute_summary(text):
@@ -23,6 +24,29 @@ def compute_summary(text):
     summary = '\n'.join(bullet_points)
 
     return summary
+
+def parse_csv_to_dictionaries(csv_filepath):
+    id_to_company = {}
+    id_to_vacancies = {}
+
+    with open(csv_filepath, newline='') as csvfile:
+        csv_reader = csv.DictReader(csvfile)
+        for row in csv_reader:
+            company_id = int(row['company_id'])
+            company_name = row['company_str']
+            vacancies = int(row['vacancies'])
+
+            id_to_company[company_id] = company_name
+            id_to_vacancies[company_id] = vacancies
+
+    return id_to_company, id_to_vacancies
+
+def csv_to_json(csv_data):
+    data = []
+    for row in csv_data:
+        data.append(dict(zip(row[0::2], row[1::2])))
+
+    return json.dumps(data)
 
 def init_input_csv(input_csv_path, output_csv_path, keyword_bank):
     # Read the input CSV into a pandas DataFrame

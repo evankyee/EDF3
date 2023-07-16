@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/frontend/index.html">Logo</a></li>
+                <li><a href="#">A</a></li>
+                <li><a href="#">B</a></li>
+                <li><a href="#">C</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="tabs">
+                <a href="/frontend/applications.html">
+                    <button class="tab-button">
+							<p>Applications</p>
+							<p>950 (eligible) /1000</p>
+						</button>
+                </a>
+                <a href="/frontend/matching.html">
+                    <button class="tab-button">
+							<p>500</p>
+							<p>950 (eligible) /1000</p>
+						</button>
+                </a>
+                <a href="/frontend/interview.html">
+                    <button class="tab-button">
+							<p>250</p>
+							<p>950 (eligible) /1000</p>
+						</button>
+                </a>
+                <a href="/frontend/offer.html">
+                    <button class="tab-button">
+							<p>200</p>
+							<p>950 (eligible) /1000</p>
+						</button>
+                </a>
+                <a href="/frontend/matched.html">
+                    <button class="tab-button">
+							<p>Matched</p>
+							<p>150 (eligible) /1000</p>
+						</button>
+                </a>
+            </div>
+            <div id="tab1" class="tab-content">
+                <h2>Tab 1 Content</h2>
+                <p>This is the content for Tab 1.</p>
+                <table id="myTable">
+                    <tr>
+                        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+                        <th onclick="sortTable(0)">Name</th>
+                        <th onclick="sortTable(1)">Country</th>
+                        <th onclick="sortTable(2)">Test</th>
+                        <th onclick="sortTable(3)">Test2</th>
+                    </tr>
+                    <tr>
+                        <td>Berglunds snabbkop</td>
+                        <td>Sweden</td>
+                        <td>fsdfsdfrglunds snabbkop</td>
+                        <td>gebrneden</td>
+                    </tr>
+                    <tr>
+                        <td>North/South</td>
+                        <td>UK</td>
+                        <td>Berglunds snabbkop</td>
+                        <td>Sweden</td>
+                    </tr>
+                    <tr>
+                        <td>Alfreds Futterkiste</td>
+                        <td>Germany</td>
+                        <td>hrtyhglunds snabbkop</td>
+                        <td>wereden</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="sortable.min.css" />
+    <script src="sortable.min.js"></script>
+</body>
+
+</html>

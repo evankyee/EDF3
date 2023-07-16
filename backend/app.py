@@ -1,49 +1,47 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pandas as pd
-from helpers.csv_helpers import init_input_csv 
+from helpers.csv_helpers import init_input_csv, parse_csv_to_dictionaries 
 from helpers.fuzzy_helpers import fuzzy_match
 from helpers.sentiment_helpers import assign_sentiment_scores
+import helpers.matching.rothpearson as rothpearson
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-uri = "mongodb+srv://stephanieeristoff:<YgIS9RAMJ55ftwLo>@cluster0.i3zrsvm.mongodb.net/?retryWrites=true&w=majority"
+app = Flask(__name__, template_folder='static/templates')
 
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
+@app.route('/applications')
+def applications():
+    # Replace 'applicants.csv' with the path to your CSV file containing applicant data
+    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
+    return render_template('/applications.html', applicants=applicants_data, rawr="xd")
 
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+@app.route('/matching')
+def matchings():
+    # Replace 'applicants.csv' with the path to your CSV file containing applicant data
+    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
+    return render_template('/matching.html', applicants=applicants_data)
 
+@app.route('/interview')
+def interview():
+    # Replace 'applicants.csv' with the path to your CSV file containing applicant data
+    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
+    return render_template('/interview.html', applicants=applicants_data)
 
-app = Flask(__name__)
+@app.route('/offer')
+def offer():
+    # Replace 'applicants.csv' with the path to your CSV file containing applicant data
+    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
+    return render_template('/offer.html', applicants=applicants_data)
 
-@app.route('/process_csv', methods=['POST'])
-def process_csv():
-    try:
-        # Check if the request contains a file named 'csv_file'
-        if 'csv_file' not in request.files:
-            return jsonify({'error': 'No file part'})
+@app.route('/onboarding')
+def onboarding():
+    # Replace 'applicants.csv' with the path to your CSV file containing applicant data
+    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
+    return render_template('/onboarding.html', applicants=applicants_data)
 
-        file = request.files['csv_file']
-
-        # Check if the file has a filename
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'})
-
-        # Read the CSV file using pandas
-        df = pd.read_csv(file)
-
-        # Perform processing on the CSV data (you can add your processing logic here)
-        processed_data = df.to_dict(orient='records')
-
-        return jsonify({'data': processed_data})
-
-    except Exception as e:
-        return jsonify({'error': str(e)})
+def read_csv_to_dict_list(csv_path):
+    df = pd.read_csv(csv_path)
+    return df.to_dict(orient='records')
 
 if __name__ == '__main__':
     # Inherit the automated_scoring from the toggle on the front-end
@@ -54,18 +52,21 @@ if __name__ == '__main__':
     # TODO: Enable inheriting form the frontend -- currently just declare
     keywords = ["plastic", "law", "transportation", "urban"]
     
-    # Obtain the filtered & extracted keywords csv file
-    csv_file = "../data/syn_data_30.csv"
-    filtered_csv_file = csv_file[:-4] + '_filter.csv' if csv_file.endswith('.csv') else csv_file + '_filter.csv'
+    candidate_csv_file = "../data/syn_data_30.csv"
+    company_csv_file = "../data/company_info.csv"
+    filtered_csv_file = candidate_csv_file[:-4] + '_filter.csv' if candidate_csv_file.endswith('.csv') else candidate_csv_file + '_filter.csv'
     scored_csv_file = filtered_csv_file[:-4] + '_scored.csv' if filtered_csv_file.endswith('.csv') else filtered_csv_file + '_scored.csv' 
-    init_input_csv(csv_file, filtered_csv_file, keywords)
 
-    # Send the filtered csv file to the front-end for display
-    # TODO: Create csv --> json and send to the front-end for display
-    
+    # Do all pre-processing steps of candidate csv file: (1) filter out ineligible people, assign unassigned statuses, and "-" scores 
+    init_input_csv(candidate_csv_file, filtered_csv_file, keywords)
+
+    # TODO: Check if the overwriting process is ok
     if automated_scoring: 
-        assign_sentiment_scores(filtered_csv_file, scored_csv_file)
+        assign_sentiment_scores(filtered_csv_file, filtered_csv_file)
     
-    # TODO: csv --> json to automatically populate the front-end with the sentiment scores
+    # Do pre-processing of the id_to_company & vacancies_to_company from the company_csv_file
+    id_to_company, vacancies_to_company = parse_csv_to_dictionaries(company_csv_file)
+    rothpearson.main()
+
 
     app.run(debug=True)
