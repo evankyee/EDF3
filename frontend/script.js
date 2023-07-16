@@ -1,26 +1,26 @@
-function openTab(evt, tabName) {
-    // Hide all tab contents
-    var tabContents = document.getElementsByClassName("tab-content");
-    for (var i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = "none";
-    }
+// function openTab(evt, tabName) {
+//     // Hide all tab contents
+//     var tabContents = document.getElementsByClassName("tab-content");
+//     for (var i = 0; i < tabContents.length; i++) {
+//         tabContents[i].style.display = "none";
+//     }
 
-    // Remove active class from all tab buttons
-    var tabButtons = document.getElementsByClassName("tab-button");
-    for (var i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].classList.remove("active");
-    }
+//     // Remove active class from all tab buttons
+//     var tabButtons = document.getElementsByClassName("tab-button");
+//     for (var i = 0; i < tabButtons.length; i++) {
+//         tabButtons[i].classList.remove("active");
+//     }
 
-    // Show the selected tab content
-    document.getElementById(tabName).style.display = "block";
+//     // Show the selected tab content
+//     document.getElementById(tabName).style.display = "block";
 
-    // Add active class to the clicked tab button
-    evt.currentTarget.classList.add("active");
-}
+//     // Add active class to the clicked tab button
+//     evt.currentTarget.classList.add("active");
+// }
 
-// Open the first tab by default
-document.getElementById("tab1").style.display = "block";
-document.getElementsByClassName("tab-button")[0].classList.add("active");
+// // Open the first tab by default
+// document.getElementById("tab1").style.display = "block";
+// document.getElementsByClassName("tab-button")[0].classList.add("active");
 
 
 
@@ -76,5 +76,35 @@ function sortTable(n) {
                 switching = true;
             }
         }
+    }
+}
+
+
+
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
 }
