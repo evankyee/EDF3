@@ -34,19 +34,19 @@
                 </div>
                 <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
                     <p>MATCHING</p>
-                    <h1>250</h1>
+                    <h1>150</h1>
                 </div>
                 <div class="chevron" onclick="window.location.href='/frontend/interview.html'">
                     <p>INTERVIEW</p>
-                    <h1>200</h1>
+                    <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
+                <div class="chevron" onclick="window.location.href='/frontend/offer.html'">
                     <p>OFFERS</p>
-                    <h1>250</h1>
+                    <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/interview.html'">
+                <div class="chevron" onclick="window.location.href='/frontend/onboarding.html'">
                     <p>ONBOARDING</p>
-                    <h1>200</h1>
+                    <h1>150</h1>
                 </div>
             </div>
             <div class="tab-content">
@@ -117,7 +117,14 @@
 									border-radius: 10px;
 									padding: 10px;
 								">
-								Proceed to matching (0)
+								<a
+									href="/frontend/matching.html"
+									style="text-decoration: none"
+									color="white"
+									a:visited="white"
+								>
+									Proceed to matching (0)
+								</a>
 							</button>
                     </div>
                 </div>
@@ -134,16 +141,12 @@
                     <tr>
                         <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
                         <th onclick="sortTable(0) ">Applicant</th>
-                        <th onclick="sortTable(1) ">Score 1</th>
-                        <th onclick="sortTable(2) ">Score 2</th>
-                        <th onclick="sortTable(3) ">Score 3</th>
-                        <th onclick="sortTable(4) ">Average Score</th>
-                        <th onclick="sortTable(5) "></th>
+                        <th onclick="sortTable(1) ">Average Score</th>
+                        <th onclick="sortTable(2) ">Status</th>
+                        <th onclick="sortTable(3) "></th>
                     </tr>
                     <tr>
                         <td style="font-weight: bold">Jun</td>
-                        <td>-</td>
-                        <td>-</td>
                         <td>-</td>
                         <td>-</td>
                         <td>
@@ -153,8 +156,6 @@
 						</tr>
 						<tr>
 							<td style="font-weight: bold">Stephanie</td>
-							<td>-</td>
-							<td>-</td>
 							<td>-</td>
 							<td>-</td>
 							<td>
@@ -167,8 +168,6 @@
 							<td style="font-weight: bold">Evan</td>
 							<td>-</td>
 							<td>-</td>
-							<td>-</td>
-							<td>-</td>
 							<td>
 								<span style="color: blue" id="myBtn"
 									>View Applicant Details</span
@@ -177,8 +176,6 @@
 						</tr>
 						<tr>
 							<td style="font-weight: bold">Jane</td>
-							<td>-</td>
-							<td>-</td>
 							<td>-</td>
 							<td>-</td>
 							<td>

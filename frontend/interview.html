@@ -32,13 +32,13 @@
                     <p>RECRUITING</p>
                     <h1>1216</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/matching.html'" style="background-color: #d2edf6">
+                <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
                     <p>MATCHING</p>
-                    <h1 style="color: blue">150</h1>
-                </div>
-                <div class="chevron" onclick="window.location.href='/frontend/interview.html'">
-                    <p>INTERVIEW</p>
                     <h1>150</h1>
+                </div>
+                <div class="chevron" onclick="window.location.href='/frontend/interview.html'" style="background-color: #d2edf6">
+                    <p>INTERVIEW</p>
+                    <h1 style="color: blue">150</h1>
                 </div>
                 <div class="chevron" onclick="window.location.href='/frontend/offer.html'">
                     <p>OFFERS</p>
@@ -119,7 +119,7 @@
 									border-radius: 10px;
 									padding: 10px;
 								">
-								Send interview requests (150)
+								Send offer letters (150)
 							</button>
                     </div>
                 </div>
@@ -135,53 +135,59 @@
                 <table id="myTable">
                     <tr>
                         <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                        <th onclick="sortTable(0) ">Organization</th>
-                        <th onclick="sortTable(1) ">Availability</th>
-                        <th onclick="sortTable(2) ">Details</th>
+                        <th onclick="sortTable(0) ">Applicants</th>
+                        <th onclick="sortTable(1) ">Status</th>
+                        <th onclick="sortTable(2) ">Interview Results</th>
                         <th onclick="sortTable(3) "></th>
                         <!-- <th onclick="sortTable(4) ">Average Score</th>
                         <th onclick="sortTable(5) "></th> -->
                     </tr>
                     <tr>
-                        <td style="font-weight: bold">Best Buy</td>
+                        <td style="font-weight: bold">Jun</td>
                         <td>-</td>
                         <td>-</td>
                         <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Bank of America</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Hershey's</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">PepsiCo</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+                            <span style="color: blue" id="myBtn">View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Stephanie</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Evan</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Jane</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 
-    <script src="script.js "></script>
-    <link rel="stylesheet " href="sortable.min.css " />
-    <script src="sortable.min.js "></script>
-</body>
-
+		<script src="script.js "></script>
+		<link rel="stylesheet " href="sortable.min.css " />
+		<script src="sortable.min.js "></script>
+	</body>
 </html>
