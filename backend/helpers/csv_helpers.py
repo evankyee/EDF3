@@ -16,9 +16,15 @@ def compute_summary(text):
     summary_ids = model.generate(inputs.input_ids, num_beams=4, min_length=30, max_length=150, early_stopping=True)
     summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
+    # Process the summary to convert it into bullet points
+    sentences = summary.split('. ')
+    bullet_points = [f'• {sentence.strip().capitalize()}.'
+                     for sentence in sentences if sentence.strip()]
+    summary = '\n'.join(bullet_points)
+
     return summary
 
-def filter_csv_by_degree(input_csv_path, output_csv_path, keyword_bank):
+def init_input_csv(input_csv_path, output_csv_path, keyword_bank):
     # Read the input CSV into a pandas DataFrame
     df = pd.read_csv(input_csv_path)
 
@@ -37,6 +43,9 @@ def filter_csv_by_degree(input_csv_path, output_csv_path, keyword_bank):
 
     # Drop the intermediate 'all_responses' column
     df_filtered.drop(columns=['all_responses'], inplace=True)
+
+    # Add a new column 'status' and initialize all rows to have it be "waitlist"
+    df_filtered['status'] = 'waitlist'
 
     # Write the filtered data with the summary to a new CSV file
     df_filtered.to_csv(output_csv_path, index=False)
