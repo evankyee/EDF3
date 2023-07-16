@@ -1,5 +1,6 @@
-john,2.1,2,1;2;
-rick,2.4,6,1;
-bill,10.1,9,1;0;
-guy,17.22,4,0;
-END,,,
+Name,Score,Date,Preferences,Status
+john,2.1,2,1;2;,wait
+rick,2.4,6,1;,wait
+bill,10.1,9,1;0;,wait
+guy,17.22,4,0;,wait
+END,,,,

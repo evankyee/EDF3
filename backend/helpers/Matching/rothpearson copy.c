@@ -19,14 +19,14 @@ struct org{
     int *spots;
 };
 
-struct applicant* newapplicant(char name[], float score, char pref[], int date){
+struct applicant* newapplicant(char name[], float score, char pref[], int date, char status[]){
     struct applicant* piz = (struct applicant*) malloc (sizeof(struct applicant));
     piz->next=NULL;
     strcpy(piz->name, name);
     piz->score=score;
     strcpy(piz->pref, pref);
     piz->date=date;
-    piz->assignment=NULL;
+    piz->assignment=status;
     return piz;
 }
 
@@ -51,6 +51,9 @@ struct applicant* applicantlist(char file[]){
     struct applicant* first = NULL;
     struct applicant* pront;
     int loop=1;
+    if (fgets(line, 64, pizfile) == NULL){
+            return EXIT_SUCCESS;
+        }
 
     while (loop==1){
         struct applicant* current;
@@ -60,6 +63,7 @@ struct applicant* applicantlist(char file[]){
         float score;
         char pref[64];
         char *token;
+        char status[64];
         int date;
         count++;
         if (fgets(line, 64, pizfile) == NULL){
@@ -80,9 +84,11 @@ struct applicant* applicantlist(char file[]){
         date = atoi(token);
         token = strtok(NULL, ",");
         strcpy(pref, token);
+        token = strtok(NULL, ",");
+        strcpy(status, token);
         
         if (head==0){
-            first = newapplicant(name, score, pref, date);
+            first = newapplicant(name, score, pref, date, status);
             current=first;
             head=1;
         }
@@ -103,6 +109,7 @@ struct applicant* applicantlist(char file[]){
             newapplicant->score=score;
             strcpy(newapplicant->pref, pref);
             newapplicant->date=date;
+            newapplicant->assignment=status;
 
             (*temp).next=newapplicant;
         }
@@ -172,7 +179,7 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
         //printf("%s %d\n", orgarray[i]->name, *(orgarray[i]->spots));
 
     }
-    char waitlist[]="waitlist";
+    char waitlist[]="wait";
 
 
 
@@ -183,7 +190,7 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
     //in sorting, assess if the values of each int is 0
 
     struct applicant* temp = head;
-    
+    printf("Name,Score,Date,Preference,Assignment\n");
     while (temp!=NULL){
         struct applicant* max = head;
         struct applicant* current = head;
@@ -199,8 +206,10 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
         }
         if (max==head && head->next!=NULL){
             head=head->next;
-            
-            preftok = strtok(max->pref, ";");
+            if (strcmp(max->assignment,"wait")!=0){
+            char tempo[64];
+            strcpy(tempo, max->pref);
+            preftok = strtok(tempo, ";");
             while (preftok!=NULL){
                 choice = atoi(preftok);
                 
@@ -214,18 +223,24 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
                 }
                 preftok = strtok(NULL, ";");
             }
+            }
             if (match==0){
                 max->assignment=waitlist;
             }
-            printf("Name: %7s Date Submitted: %7d Score: %7f Assignment: %7s\n", max->name, max->date, max->score, max->assignment);
+            
+            printf("%s,%d,%f,%s,%s\n", max->name, max->date, max->score, max->pref, max->assignment);
 
             
         }
         else if (max==head && head->next==NULL){
             
-            preftok = strtok(max->pref, ";");
+            if (strcmp(max->assignment,"wait")!=0){
+
+            
+            char tempo[64];
+            strcpy(tempo, max->pref);
+            preftok = strtok(tempo, ";");
             while (preftok!=NULL){
-                
                 choice = atoi(preftok);
                 
                 if (*(orgarray[choice]->spots)!=0){
@@ -238,16 +253,22 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
                 }
                 preftok = strtok(NULL, ";");
             }
+            }
             if (match==0){
                 max->assignment=waitlist;
             }
-            printf("Name: %7s Date Submitted: %7d Score: %7f Assignment: %7s\n", max->name, max->date, max->score, max->assignment);
+            printf("%s,%d,%f,%s,%s\n", max->name, max->date, max->score, max->pref, max->assignment);
             break;
         }
         else{
             
             
-            preftok = strtok(max->pref, ";");
+            if (strcmp(max->assignment,"wait")!=0){
+
+            
+            char tempo[64];
+            strcpy(tempo, max->pref);
+            preftok = strtok(tempo, ";");
             while (preftok!=NULL){
                 choice = atoi(preftok);
                 
@@ -256,23 +277,23 @@ int main(int argc, char* argv[]){ //might have numbers assigned with each org, n
                     max->assignment=orgarray[choice]->name;
                     *(orgarray[choice]->spots)+=(-1);
                     match=1;
-                    
                     break;
                     
                 }
                 preftok = strtok(NULL, ";");
             }
+            }
             if (match==0){
                 max->assignment=waitlist;
             }
-            printf("Name: %7s Date Submitted: %7d Score: %7f Assignment: %7s\n", max->name, max->date, max->score, max->assignment);
+            printf("%s,%d,%f,%s,%s\n", max->name, max->date, max->score, max->pref, max->assignment);
             remove(head, max);
         }
         
         
     }
     
-    
+    printf("END");
     return EXIT_SUCCESS;
 
 }

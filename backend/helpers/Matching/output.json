@@ -1,0 +1,26 @@
+[
+    {
+        "Name": "guy",
+        "Date Submitted": "4",
+        "Score": "17.22",
+        "Assignment": "pepsi"
+    },
+    {
+        "Name": "bill",
+        "Date Submitted": "9",
+        "Score": "10.1",
+        "Assignment": "mcd"
+    },
+    {
+        "Name": "rick",
+        "Date Submitted": "6",
+        "Score": "2.4",
+        "Assignment": "waitlist"
+    },
+    {
+        "Name": "john",
+        "Date Submitted": "2",
+        "Score": "2.1",
+        "Assignment": "jaw"
+    }
+]
