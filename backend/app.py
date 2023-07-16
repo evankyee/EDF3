@@ -15,24 +15,28 @@ def applications():
     applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
     return render_template('/applications.html', applicants=applicants_data, rawr="xd")
 
+# TODO: Get the actual correct csv for this one
 @app.route('/matching')
 def matchings():
     # Replace 'applicants.csv' with the path to your CSV file containing applicant data
     applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
     return render_template('/matching.html', applicants=applicants_data)
 
+# TODO: Get the correct csvs for this one
 @app.route('/interview')
 def interview():
     # Replace 'applicants.csv' with the path to your CSV file containing applicant data
     applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
     return render_template('/interview.html', applicants=applicants_data)
 
+# TODO: Get the correct csvs to this one
 @app.route('/offer')
 def offer():
     # Replace 'applicants.csv' with the path to your CSV file containing applicant data
     applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
     return render_template('/offer.html', applicants=applicants_data)
 
+# TODO: Get the correct csvs to this one
 @app.route('/onboarding')
 def onboarding():
     # Replace 'applicants.csv' with the path to your CSV file containing applicant data
@@ -66,7 +70,8 @@ if __name__ == '__main__':
     
     # Do pre-processing of the id_to_company & vacancies_to_company from the company_csv_file
     id_to_company, vacancies_to_company = parse_csv_to_dictionaries(company_csv_file)
-    rothpearson.main()
 
+    # TODO: Get the rothpearson working correctly
+    rothpearson.main()
 
     app.run(debug=True)
