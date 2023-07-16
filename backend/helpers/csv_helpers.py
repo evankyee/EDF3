@@ -45,7 +45,7 @@ def init_input_csv(input_csv_path, output_csv_path, keyword_bank):
     df_filtered.drop(columns=['all_responses'], inplace=True)
 
     # Add a new column 'status' and initialize all rows to have it be "waitlist"
-    df_filtered['status'] = 'waitlist'
+    df_filtered['status'] = 'unassigned'
 
     # Write the filtered data with the summary to a new CSV file
     df_filtered.to_csv(output_csv_path, index=False)
