@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-from helpers.csv_helpers import filter_csv_by_degree
+from helpers.csv_helpers import init_input_csv 
 from helpers.fuzzy_helpers import fuzzy_match
 from helpers.sentiment_helpers import assign_sentiment_scores
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 
@@ -43,7 +45,7 @@ if __name__ == '__main__':
     csv_file = "../data/syn_data_30.csv"
     filtered_csv_file = csv_file[:-4] + '_filter.csv' if csv_file.endswith('.csv') else csv_file + '_filter.csv'
     scored_csv_file = filtered_csv_file[:-4] + '_scored.csv' if filtered_csv_file.endswith('.csv') else filtered_csv_file + '_scored.csv' 
-    filter_csv_by_degree(csv_file, filtered_csv_file, keywords)
+    init_input_csv(csv_file, filtered_csv_file, keywords)
 
     # Send the filtered csv file to the front-end for display
     # TODO: Create csv --> json and send to the front-end for display

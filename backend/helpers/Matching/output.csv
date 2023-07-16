@@ -1,4 +1,5 @@
-Name: guy                 , Date Submitted: 4         , Score: 17.22     , Assignment: pepsi
-Name: bill                , Date Submitted: 9         , Score: 10.10     , Assignment: mcd
-Name: rick                , Date Submitted: 6         , Score: 2.40      , Assignment: waitlist
-Name: john                , Date Submitted: 2         , Score: 2.10      , Assignment: jaw
+Name,Date Submitted,Score,Assignment
+guy,4,17.22,pepsi
+bill,9,10.1,mcd
+rick,6,2.4,waitlist
+john,2,2.1,jaw
