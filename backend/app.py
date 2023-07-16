@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-from helpers.csv_helpers import filter_csv_by_degree, extract_keywords
+from helpers.csv_helpers import filter_csv_by_degree
 from helpers.fuzzy_helpers import fuzzy_match
 from helpers.sentiment_helpers import assign_sentiment_scores
 
@@ -31,4 +31,26 @@ def process_csv():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
+    # Inherit the automated_scoring from the toggle on the front-end
+    # TODO: Enable inheriting from the frontend -- currently just declare
+    automated_scoring = True
+
+    # Inherit the keywords needed for the keyword highlighting process 
+    # TODO: Enable inheriting form the frontend -- currently just declare
+    keywords = ["plastic", "law", "transportation", "urban"]
+    
+    # Obtain the filtered & extracted keywords csv file
+    csv_file = "../data/syn_data_30.csv"
+    filtered_csv_file = csv_file[:-4] + '_filter.csv' if csv_file.endswith('.csv') else csv_file + '_filter.csv'
+    scored_csv_file = filtered_csv_file[:-4] + '_scored.csv' if filtered_csv_file.endswith('.csv') else filtered_csv_file + '_scored.csv' 
+    filter_csv_by_degree(csv_file, filtered_csv_file, keywords)
+
+    # Send the filtered csv file to the front-end for display
+    # TODO: Create csv --> json and send to the front-end for display
+    
+    if automated_scoring: 
+        assign_sentiment_scores(filtered_csv_file, scored_csv_file)
+    
+    # TODO: csv --> json to automatically populate the front-end with the sentiment scores
+
     app.run(debug=True)
