@@ -1,6 +1,7 @@
 import pandas as pd
 import csv
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+import json
 
 def compute_summary(text):
     # Load the T5 tokenizer and model
@@ -24,22 +25,6 @@ def compute_summary(text):
     summary = '\n'.join(bullet_points)
 
     return summary
-
-def parse_csv_to_dictionaries(csv_filepath):
-    id_to_company = {}
-    id_to_vacancies = {}
-
-    with open(csv_filepath, newline='') as csvfile:
-        csv_reader = csv.DictReader(csvfile)
-        for row in csv_reader:
-            company_id = int(row['company_id'])
-            company_name = row['company_str']
-            vacancies = int(row['vacancies'])
-
-            id_to_company[company_id] = company_name
-            id_to_vacancies[company_id] = vacancies
-
-    return id_to_company, id_to_vacancies
 
 def csv_to_json(csv_data):
     data = []
@@ -73,3 +58,40 @@ def init_input_csv(input_csv_path, output_csv_path, keyword_bank):
 
     # Write the filtered data with the summary to a new CSV file
     df_filtered.to_csv(output_csv_path, index=False)
+
+def read_matching_file(matching_filepath):
+    company_data = {}  # Dictionary to store company data
+
+    with open(matching_filepath, "r", newline="") as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        for row in reader:
+            company = row['assignment']
+            name = row['name']
+            email = row['email']
+            
+            # Create a tuple with name and email
+            person_info = (name, email)
+
+            # Add the person's info to the list for the company
+            if company in company_data:
+                company_data[company].append(person_info)
+            else:
+                company_data[company] = [person_info]
+
+    return company_data
+
+def read_csv_to_dict_list(csv_path):
+    df = pd.read_csv(csv_path)
+    return df.to_dict(orient='records')
+
+def parse_company_vacancies(file_path):
+    org_dict = {}
+    with open(file_path, "r") as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip the header row
+        for row in reader:
+            company_id, company_str, vacancies = row
+            org_dict[company_str] = int(vacancies)
+    return org_dict
+

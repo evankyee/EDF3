@@ -1,9 +1,11 @@
 import argparse
+from datetime import datetime
 import csv
 
 class Applicant:
-    def __init__(self, name, score, pref, date, status):
+    def __init__(self, name, email, score, pref, date, status):
         self.name = name
+        self.email = email
         self.score = score
         self.pref = pref
         self.date = date
@@ -16,38 +18,35 @@ class Org:
         self.index = index
         self.spots = spots
 
-def new_applicant(name, score, pref, date, status):
+def new_applicant(name, email, score, pref, date, status):
     return Applicant(name, score, pref, date, status)
 
 def new_org(name, index, spots):
     return Org(name, index, spots)
 
-def applicant_list(file):
-    applicants = []
-    with open(file, "r", newline="") as pizfile:
-        reader = csv.reader(pizfile)
-        next(reader)  # Skip the header row
-        for line in reader:
-            if "END" in line:
-                continue  # Skip the line with "END"
+def preprocess_applicant_file(input_file):
+    processed_data = []
+
+    with open(input_file, "r", newline="") as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            name = row['name']
+            email = row['email']
+            score = row['average_score']
+            pref = row['pref']
+            datetime = row['datetime']
+            status = row['status']
             
-            name, score, date, pref, status = line
+            processed_data.append({
+                'name': name,
+                'email': email,
+                'score': score,
+                'pref': pref,
+                'datetime': datetime,
+                'status': status
+            })
 
-            # Check if the score field is empty or invalid
-            if not score.strip():
-                score = 0.0  # Set a default value, you can change this as needed
-            else:
-                score = float(score)
-
-            # Check if the date field is empty or invalid
-            if not date.strip():
-                date = 0  # Set a default value, you can change this as needed
-            else:
-                date = int(date)
-
-            applicants.append(new_applicant(name, score, pref, date, status))
-    return applicants
-
+    return processed_data
 
 def app_cmp(a, b):
     if a.score != b.score:
@@ -66,50 +65,47 @@ def remove(head, rem):
     current.next = rem.next
     return head
 
-def main():
-    parser = argparse.ArgumentParser(description="Applicant Assignment Program")
-    parser.add_argument("applicant_file", type=str, help="Path to the applicant file")
-    parser.add_argument("org_file", type=str, help="Path to the organization file")
-    parser.add_argument("num_orgs", type=int, help="Number of organizations")
-    args = parser.parse_args()
-
+def apply_roth_pearson(applicant_filepath, org_filepath, output_filepath, num_orgs):
     orgarray = []
-    spots = [0] * args.num_orgs
+    spots = [0] * num_orgs
 
-    with open(args.org_file, "r") as orgfile:
+    with open(org_filepath, "r") as orgfile:
+        next(orgfile)  # Skip the header row
         for line in orgfile:
             tokens = line.strip().split(",")
             if tokens[0] == "END":
                 break
-            name, num_spots = tokens
-            orgarray.append(new_org(name, len(orgarray), int(num_spots)))
+            org_id, org_name, num_spots = tokens
+            orgarray.append(new_org(org_name, org_id, int(num_spots)))
 
     waitlist = "waitlist"
-    applicants = applicant_list(args.applicant_file)
+    applicants = preprocess_applicant_file(applicant_filepath)
 
-    print("Name,Date,Score,Preference,Assignment")
-    while applicants:
-        max_applicant = max(applicants, key=lambda x: (x.score, -x.date))
-        applicants.remove(max_applicant)
-        preftok = max_applicant.pref.split(";")
+    # print("Name,Date,Score,Preference,Assignment")
+    with open(output_filepath, "w", newline="") as outfile:
+        fieldnames = ["name", "email", "score", "pref", "datetime", "status", "assignment"]
+        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+        writer.writeheader()
 
-        matched = False
-        for choice in preftok:
-            if not choice:
-                continue  # Skip empty choices
-            choice = int(choice)
-            if orgarray[choice].spots > 0:
-                max_applicant.assignment = orgarray[choice].name
-                orgarray[choice].spots -= 1
-                matched = True
-                break
+        while applicants:
+            max_applicant = max(applicants, key=lambda x: (x['score'], -datetime.timestamp(datetime.strptime(x['datetime'], "%Y-%m-%d %H:%M:%S"))))
+            preftok = max_applicant['pref'].split(";")
 
-        if not matched:
-            max_applicant.assignment = waitlist
+            matched = False
+            for choice in preftok:
+                if not choice:
+                    continue  # Skip empty choices
+                choice = int(choice)
+                if orgarray[choice].spots > 0:
+                    max_applicant['assignment'] = orgarray[choice].name
+                    orgarray[choice].spots -= 1
+                    matched = True
+                    break
 
-        print(f"{max_applicant.name},{max_applicant.date},{max_applicant.score},{max_applicant.pref},{max_applicant.assignment}")
+            if not matched:
+                max_applicant['assignment'] = waitlist
 
-    print("END")
+            # Write the updated data to the output matching file
+            writer.writerow(max_applicant)
 
-if __name__ == "__main__":
-    main()
+            applicants.remove(max_applicant)

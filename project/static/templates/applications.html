@@ -100,12 +100,13 @@
                         Using cutoff score of 70 points, we have shortlisted 500 applicants
                     </p> -->
                     <div style="display: flex; margin: 10px">
-                        <button style="
-									color: blue;
-									border-color: blue;
-									background-color: white;
-									border-radius: 10px;
-									padding: 10px;
+							<button id="aiScoringButton" 
+								style="
+									color: blue; 
+									border-color: blue; 
+									background-color: white; 
+									border-radius: 10px; 
+									padding: 10px; 
 									margin-right: 10px;
 								">
 								<img src="{{ url_for('static', filename='images/arrow.png') }}" style="height: 5px; margin-left: 10px" />Turn on AI Scoring
@@ -168,6 +169,25 @@
 				console.log('Sorting by column ' + n);
 			}
 		</script> 
+		<script>
+		// Add an event listener to the "Turn on AI Scoring" button
+			document.getElementById('aiScoringButton').addEventListener('click', function() {
+				// Send a POST request to the Flask backend when the button is clicked
+				fetch('/turn_on_ai_scoring', {
+					method: 'POST',
+				})
+				.then(response => {
+					if (response.ok) {
+						console.log('AI Scoring turned on successfully.');
+					} else {
+						console.error('Failed to turn on AI Scoring.');
+					}
+				})
+				.catch(error => {
+					console.error('An error occurred:', error);
+				});
+			});
+		</script>
 		<script src="script.js "></script>
 		<link rel="stylesheet " href="sortable.min.css " />
 		<script src="sortable.min.js "></script>
