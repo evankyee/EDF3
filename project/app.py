@@ -1,11 +1,8 @@
 from flask import Flask, render_template, jsonify
-import pandas as pd
-from helpers.csv_helpers import init_input_csv, parse_company_vacancies, read_matching_file, read_csv_to_dict_list 
+from helpers.csv_helpers import init_input_csv, parse_company_vacancies, read_matching_file_for_company, read_matching_file_for_people, read_csv_to_dict_list, is_csv_file_empty 
 from helpers.sentiment_helpers import assign_sentiment_scores
 from helpers.matching.rothpearson import apply_roth_pearson 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-import csv
+import copy
 
 app = Flask(__name__, template_folder='static/templates')
 
@@ -21,19 +18,32 @@ output_matching_file = candidate_csv_file[:-4] + '_matching.csv' if candidate_cs
 @app.route('/applications')
 def applications():
     # Replace 'applicants.csv' with the path to your CSV file containing applicant data
-    applicants_data = read_csv_to_dict_list('../data/syn_data_30_filter.csv')
-    return render_template('/applications.html', applicants=applicants_data, rawr="xd")
+    applicants_data = read_csv_to_dict_list(candidate_csv_file)
+    matchings = None
+    if not is_csv_file_empty(output_matching_file):
+        applicants_data = read_csv_to_dict_list(output_matching_file)
+        print(applicants_data)
+    return render_template('/applications.html', applicants=applicants_data)
 
 # TODO: Get the actual correct csv for this one
 @app.route('/matching')
 def matchings():
-    matching_data = read_csv_to_dict_list(output_matching_file)
-    company_vacancy_data = parse_company_vacancies(org_csv_file)
+    matching_data = read_matching_file_for_company(output_matching_file)
+    total_company_vacancies = parse_company_vacancies(org_csv_file)
+    current_company_vacancies = copy.deepcopy(total_company_vacancies)
 
     # Update the company vacancy data based on who people get matched too
     for key, v in matching_data.items():
-        company_vacancy_data[key] -= v
-    return render_template('/matching.html', matchings=matching_data, company_vacancies=company_vacancy_data)
+        if key != "waitlist":
+            current_company_vacancies[key] -= len(v)
+
+    combined_vacancy_data = {}
+    for company, vacancies in current_company_vacancies.items():
+        total_vacancies = total_company_vacancies.get(company, 0)
+        curr_matched_applicants = matching_data.get(company, [])
+        combined_vacancy_data[company] = (vacancies, total_vacancies, curr_matched_applicants)
+
+    return render_template('/matching.html', combined_vacancy_data=combined_vacancy_data)
 
 # TODO: Get the correct csvs for this one
 @app.route('/interview')
@@ -75,8 +85,6 @@ if __name__ == '__main__':
     
     # TODO: Get the rothpearson working correctly
     # TODO: Move this to a button trigger and check if there is both the two following csvs:
-        # (1) the org_csv
-        # (2) the _filter_scored.csv
     apply_roth_pearson(filtered_csv_file, org_csv_file, output_matching_file, 15)
 
     # TODO: Get the running of Roth Pearson repeatedly from refreshing the waitlist correctly

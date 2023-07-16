@@ -40,7 +40,7 @@ def preprocess_applicant_file(input_file):
             processed_data.append({
                 'name': name,
                 'email': email,
-                'score': score,
+                'average_score': score,
                 'pref': pref,
                 'datetime': datetime,
                 'status': status
@@ -83,12 +83,12 @@ def apply_roth_pearson(applicant_filepath, org_filepath, output_filepath, num_or
 
     # print("Name,Date,Score,Preference,Assignment")
     with open(output_filepath, "w", newline="") as outfile:
-        fieldnames = ["name", "email", "score", "pref", "datetime", "status", "assignment"]
+        fieldnames = ["name", "email", "average_score", "pref", "datetime", "status"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
 
         while applicants:
-            max_applicant = max(applicants, key=lambda x: (x['score'], -datetime.timestamp(datetime.strptime(x['datetime'], "%Y-%m-%d %H:%M:%S"))))
+            max_applicant = max(applicants, key=lambda x: (x['average_score'], -datetime.timestamp(datetime.strptime(x['datetime'], "%Y-%m-%d %H:%M:%S"))))
             preftok = max_applicant['pref'].split(";")
 
             matched = False
@@ -97,13 +97,13 @@ def apply_roth_pearson(applicant_filepath, org_filepath, output_filepath, num_or
                     continue  # Skip empty choices
                 choice = int(choice)
                 if orgarray[choice].spots > 0:
-                    max_applicant['assignment'] = orgarray[choice].name
+                    max_applicant['status'] = orgarray[choice].name
                     orgarray[choice].spots -= 1
                     matched = True
                     break
 
             if not matched:
-                max_applicant['assignment'] = waitlist
+                max_applicant['status'] = waitlist
 
             # Write the updated data to the output matching file
             writer.writerow(max_applicant)

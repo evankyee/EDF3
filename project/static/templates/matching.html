@@ -59,6 +59,7 @@
                 <br />
                 <br />
                 <br />
+                <!--
                 <div style="display: flex; justify-content: space-between">
                     <div style="display: flex; margin: 10px; align-items: center">
                         <button style="
@@ -98,6 +99,7 @@
 								+
 							</button>
                     </div>
+                    -->
                     <!-- <p>
                         Using cutoff score of 70 points, we have shortlisted 500 applicants
                     </p> -->
@@ -110,7 +112,7 @@
 									padding: 10px;
 									margin-right: 10px;
 								">
-								<img src="ai.png" style="height: 15px" /> Turn on AI Scoring
+								<img src="ai.png" style="height: 15px" /> Turn off AI Scoring
 							</button> -->
                         <button style="
 									color: white;
@@ -134,46 +136,23 @@
 
                 <table id="myTable">
                     <tr>
-                        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                        <th onclick="sortTable(0) ">Organization</th>
-                        <th onclick="sortTable(1) ">Availability</th>
-                        <th onclick="sortTable(2) ">Details</th>
-                        <th onclick="sortTable(3) "></th>
-                        <!-- <th onclick="sortTable(4) ">Average Score</th>
-                        <th onclick="sortTable(5) "></th> -->
+                        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by availability, etc.:-->
+                        <th onclick="sortTable(0)">Organization</th>
+                        <th onclick="sortTable(1)">Availability</th>
+                        <th onclick="sortTable(1)">Matched Applicants</th>
+                        <!-- Add more headers as needed -->
                     </tr>
+                    {% for company, (left_value, right_value, curr_matched_applicants) in combined_vacancy_data.items() %}
                     <tr>
-                        <td style="font-weight: bold">Best Buy</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
+                        <td style="font-weight: bold">{{ company }}</td>
+                        <td>{{ left_value }} / {{ right_value }}</td>
+                        <td> 
+                            {% for (applicant, email) in curr_matched_applicants %}
+                            <a href="{{ email }}">{{ applicant }}</a>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
                         </td>
                     </tr>
-                    <tr>
-                        <td style="font-weight: bold">Bank of America</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Hershey's</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">PepsiCo</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Applicant List</span>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>

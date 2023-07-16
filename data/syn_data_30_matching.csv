@@ -1,31 +1,31 @@
-name,email,score,pref,datetime,status,assignment
-Jacob Sullivan,jacob.sullivan@yahoo.com,9.995940128962198,2;8;4;12;6;10,2023-07-15 15:32:56,unassigned,Amazon
-Emily Hartman,emily.hartman@gmail.com,9.99424378077189,9;3;1;5;13;7,2023-07-15 12:45:18,unassigned,AmerisourceBergen
-Chloe Anderson,chloe.anderson@protonmail.com,9.993424216906229,2;8;6;4;12;10,2023-07-18 14:22:59,unassigned,CVS Health
-Ethan Collins,ethan.collins@protonmail.com,9.99294916788737,3;9;1;7;13;5,2023-07-15 20:55:39,unassigned,Apple
-Benjamin Ross,benjamin.ross@zoho.com,9.991559584935507,5;11;7;1;13;3;9,2023-07-16 06:56:13,unassigned,Berkshire Hathaway
-William Reed,william.reed@gmail.com,9.990851084391275,13;1;9;5;3;7,2023-07-18 00:02:50,unassigned,General Motors
-Isabella Sanchez,isabella.sanchez@inbox.com,9.989958802858988,14;2;8;4;12;6,2023-07-16 14:47:02,unassigned,Costco Wholesale
-Lucas Davidson,lucas.davidson@example.com,9.989745219548544,1;5;9;3;14;7;11,2023-07-15 09:23:47,unassigned,Walmart
-Evelyn White,evelyn.white@icloud.com,9.983305931091309,4;10;6;2;12;8,2023-07-18 03:15:39,unassigned,Exxon Mobil
-Isaac Campbell,isaac.campbell@aol.com,9.982197086016336,11;7;3;9;1;13;5,2023-07-17 13:28:10,unassigned,Cigna
-Abigail Price,abigail.price@icloud.com,9.981980522473654,11;5;12;7;2;13;4;9;3;14;8;1;10;6,2023-07-16 19:35:27,unassigned,Berkshire Hathaway
-Luke Graham,luke.graham@mail.com,9.981380105018616,10;6;2;12;8;4,2023-07-17 07:58:33,unassigned,AT&T
-Lily Ward,lily.ward@protonmail.com,9.98101274172465,6;12;4;10;2;8,2023-07-17 15:59:02,unassigned,McKesson
-Samuel Turner,samuel.turner@yandex.com,9.980230728785196,6;12;2;8;4;10,2023-07-16 12:22:33,unassigned,Ford Motor
-Charlotte Hayes,charlotte.hayes@outlook.com,9.977186918258667,12;3;8;9;1,2023-07-17 01:05:14,unassigned,Ford Motor
-Owen Stewart,owen.stewart@yahoo.com,9.974929889043173,1;7;3;11;5;13,2023-07-18 11:40:27,unassigned,Walmart
-Andrew Carter,andrew.carter@mail.com,9.95879332224528,14;2;6;12;4;10,2023-07-18 06:32:47,unassigned,Costco Wholesale
-Ava Carter,ava.carter@live.com,9.955316384633383,11;7;3;9;1;13,2023-07-16 04:30:51,unassigned,UnitedHealth Group
-Amelia Ramirez,amelia.ramirez@gmail.com,9.942846496899923,8;14;2;10;4;12,2023-07-17 05:42:08,unassigned,CVS Health
-Sophia Harper,sophia.harper@aol.com,9.917133649190268,12;8;4;10;2;6,2023-07-15 22:47:11,unassigned,Ford Motor
-Aria Cooper,aria.cooper@outlook.com,9.913620750109354,3;9;1;5;13;7,2023-07-18 09:05:55,unassigned,Apple
-Ryan Mitchell,ryan.mitchell@outlook.com,9.826435446739197,12;8;2;10;6;4,2023-07-17 18:25:40,unassigned,Ford Motor
-Grace Mitchell,grace.mitchell@zoho.com,9.809950391451517,7;13;1;9;3;11,2023-07-17 10:15:49,unassigned,UnitedHealth Group
-Caleb Murphy,caleb.murphy@yahoo.com,9.751064777374268,9;3;1;7;13;5;11,2023-07-17 03:20:22,unassigned,AmerisourceBergen
-Gabriel Foster,gabriel.foster@protonmail.com,9.707491795221964,8;14;2;10;6;12,2023-07-16 21:59:59,unassigned,CVS Health
-Jackson Rivera,jackson.rivera@fastmail.com,9.384820461273193,7;13;1;9;3;11;5,2023-07-16 17:09:39,unassigned,General Motors
-Harper Powell,harper.powell@yahoo.com,8.92532229423523,5;11;3;9;1;7,2023-07-17 20:48:21,unassigned,Berkshire Hathaway
-Mia Patel,mia.patel@mail.com,8.787849942843119,13;1;7;3;9;5,2023-07-16 09:10:05,unassigned,Apple
-Nathan Thompson,nathan.thompson@icloud.com,8.75304400920868,4;10;6;12;2,2023-07-16 02:18:27,unassigned,Exxon Mobil
-Olivia Mason,olivia.mason@outlook.com,7.968416213989258,10;6;2;12;8;4,2023-07-15 18:09:03,unassigned,AT&T
+name,email,average_score,pref,datetime,status
+Jacob Sullivan,jacob.sullivan@yahoo.com,9.995940128962198,2;8;4;12;6;10,2023-07-15 15:32:56,Amazon
+Emily Hartman,emily.hartman@gmail.com,9.99424378077189,9;3;1;5;13;7,2023-07-15 12:45:18,AmerisourceBergen
+Chloe Anderson,chloe.anderson@protonmail.com,9.993424216906229,2;8;6;4;12;10,2023-07-18 14:22:59,CVS Health
+Ethan Collins,ethan.collins@protonmail.com,9.99294916788737,3;9;1;7;13;5,2023-07-15 20:55:39,Apple
+Benjamin Ross,benjamin.ross@zoho.com,9.991559584935507,5;11;7;1;13;3;9,2023-07-16 06:56:13,Berkshire Hathaway
+William Reed,william.reed@gmail.com,9.990851084391275,13;1;9;5;3;7,2023-07-18 00:02:50,General Motors
+Isabella Sanchez,isabella.sanchez@inbox.com,9.989958802858988,14;2;8;4;12;6,2023-07-16 14:47:02,Costco Wholesale
+Lucas Davidson,lucas.davidson@example.com,9.989745219548544,1;5;9;3;14;7;11,2023-07-15 09:23:47,Walmart
+Evelyn White,evelyn.white@icloud.com,9.983305931091309,4;10;6;2;12;8,2023-07-18 03:15:39,Exxon Mobil
+Isaac Campbell,isaac.campbell@aol.com,9.982197086016336,11;7;3;9;1;13;5,2023-07-17 13:28:10,Cigna
+Abigail Price,abigail.price@icloud.com,9.981980522473654,11;5;12;7;2;13;4;9;3;14;8;1;10;6,2023-07-16 19:35:27,Berkshire Hathaway
+Luke Graham,luke.graham@mail.com,9.981380105018616,10;6;2;12;8;4,2023-07-17 07:58:33,AT&T
+Lily Ward,lily.ward@protonmail.com,9.98101274172465,6;12;4;10;2;8,2023-07-17 15:59:02,McKesson
+Samuel Turner,samuel.turner@yandex.com,9.980230728785196,6;12;2;8;4;10,2023-07-16 12:22:33,Ford Motor
+Charlotte Hayes,charlotte.hayes@outlook.com,9.977186918258667,12;3;8;9;1,2023-07-17 01:05:14,Ford Motor
+Owen Stewart,owen.stewart@yahoo.com,9.974929889043173,1;7;3;11;5;13,2023-07-18 11:40:27,Walmart
+Andrew Carter,andrew.carter@mail.com,9.95879332224528,14;2;6;12;4;10,2023-07-18 06:32:47,Costco Wholesale
+Ava Carter,ava.carter@live.com,9.955316384633383,11;7;3;9;1;13,2023-07-16 04:30:51,UnitedHealth Group
+Amelia Ramirez,amelia.ramirez@gmail.com,9.942846496899923,8;14;2;10;4;12,2023-07-17 05:42:08,Costco Wholesale
+Sophia Harper,sophia.harper@aol.com,9.917133649190268,12;8;4;10;2;6,2023-07-15 22:47:11,Exxon Mobil
+Aria Cooper,aria.cooper@outlook.com,9.913620750109354,3;9;1;5;13;7,2023-07-18 09:05:55,AmerisourceBergen
+Ryan Mitchell,ryan.mitchell@outlook.com,9.826435446739197,12;8;2;10;6;4,2023-07-17 18:25:40,waitlist
+Grace Mitchell,grace.mitchell@zoho.com,9.809950391451517,7;13;0;9;3;11,2023-07-17 10:15:49,UnitedHealth Group
+Caleb Murphy,caleb.murphy@yahoo.com,9.751064777374268,9;3;1;7;13;5;11,2023-07-17 03:20:22,waitlist
+Gabriel Foster,gabriel.foster@protonmail.com,9.707491795221964,8;14;2;10;6;12,2023-07-16 21:59:59,waitlist
+Jackson Rivera,jackson.rivera@fastmail.com,9.384820461273193,7;13;1;9;3;11;5,2023-07-16 17:09:39,waitlist
+Harper Powell,harper.powell@yahoo.com,8.92532229423523,5;11;3;9;1;7,2023-07-17 20:48:21,waitlist
+Mia Patel,mia.patel@mail.com,8.787849942843119,13;1;7;3;9;5,2023-07-16 09:10:05,waitlist
+Nathan Thompson,nathan.thompson@icloud.com,8.75304400920868,4;10;6;12;2,2023-07-16 02:18:27,waitlist
+Olivia Mason,olivia.mason@outlook.com,7.968416213989258,10;6;2;12;8;4,2023-07-15 18:09:03,waitlist

@@ -59,7 +59,29 @@ def init_input_csv(input_csv_path, output_csv_path, keyword_bank):
     # Write the filtered data with the summary to a new CSV file
     df_filtered.to_csv(output_csv_path, index=False)
 
-def read_matching_file(matching_filepath):
+def read_matching_file_for_company(matching_filepath):
+    company_data = {}  # Dictionary to store company data
+
+    with open(matching_filepath, "r", newline="") as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        for row in reader:
+            company = row['status']
+            name = row['name']
+            email = row['email']
+            
+            # Create a tuple with name and email
+            person_info = (name, email)
+
+            # Add the person's info to the list for the company
+            if company in company_data:
+                company_data[company].append(person_info)
+            else:
+                company_data[company] = [person_info]
+
+    return company_data
+
+def read_matching_file_for_people(matching_filepath):
     company_data = {}  # Dictionary to store company data
 
     with open(matching_filepath, "r", newline="") as csvfile:
@@ -95,3 +117,12 @@ def parse_company_vacancies(file_path):
             org_dict[company_str] = int(vacancies)
     return org_dict
 
+def is_csv_file_empty(file_path):
+    try:
+        with open(file_path, 'r', newline='') as csvfile:
+            # Check if the file is empty
+            csv_reader = csv.reader(csvfile)
+            return not any(csv_reader)
+    except FileNotFoundError:
+        # If the file doesn't exist, it is considered empty
+        return True
