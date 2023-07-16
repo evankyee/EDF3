@@ -3,7 +3,7 @@
 
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet" />
@@ -12,10 +12,10 @@
 <body>
     <div class="container">
         <div class="topbar" style="display: flex; justify-content: space-between">
-            <img src="logo.png" style="margin-left: 100px; height: 50px; margin-top: 15px" />
+			<img src="{{ url_for('static', filename='images/logo.png') }}" style="margin-left: 100px; height: 50px; margin-top: 15px" />
             <p style="margin-right: 100px; display: flex; align-items: center">
                 Hi Ashley
-                <img src="arrow.png" style="height: 5px; margin-left: 10px" />
+				<img src="{{ url_for('static', filename='images/arrow.png') }}" style="height: 5px; margin-left: 10px" />
             </p>
         </div>
         <!-- <div class="sidebar">
@@ -28,25 +28,25 @@
         </div> -->
         <div class="content">
             <div class="tabs">
-                <div class="chevron" onclick="window.location.href='/frontend/applications.html'">
+                <div class="chevron" onclick="window.location.href='/applications'">
                     <p>RECRUITING</p>
                     <h1>1216</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
+                <div class="chevron" onclick="window.location.href='/matching'">
                     <p>MATCHING</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/interview.html' ">
+                <div class="chevron" onclick="window.location.href='/interview'" style="background-color: #d2edf6">
                     <p>INTERVIEW</p>
-                    <h1>150</h1>
+                    <h1 style="color: blue">150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/offer.html' ">
+                <div class="chevron" onclick="window.location.href='/offer'">
                     <p>OFFERS</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/onboarding.html' " style="background-color: #d2edf6">
+                <div class="chevron" onclick="window.location.href='/onboarding'">
                     <p>ONBOARDING</p>
-                    <h1 style="color: blue">150</h1>
+                    <h1>150</h1>
                 </div>
             </div>
             <div class="tab-content">
@@ -102,8 +102,15 @@
                         Using cutoff score of 70 points, we have shortlisted 500 applicants
                     </p> -->
                     <div style="display: flex; margin: 10px">
-                        <!-- <button style=" color: blue; border-color: blue; background-color: white; border-radius: 10px; padding: 10px; margin-right: 10px; ">
-								<img src="ai.png " style="height: 15px " /> Turn on AI Scoring
+                        <!-- <button style="
+									color: blue;
+									border-color: blue;
+									background-color: white;
+									border-radius: 10px;
+									padding: 10px;
+									margin-right: 10px;
+								">
+								<img src="ai.png" style="height: 15px" /> Turn on AI Scoring
 							</button> -->
                         <button style="
 									color: white;
@@ -112,12 +119,12 @@
 									border-radius: 10px;
 									padding: 10px;
 								">
-								Send interview requests (300)
+								Send offer letters (150)
 							</button>
                     </div>
                 </div>
 
-                <div id="myModal " class="modal">
+                <div id="myModal" class="modal">
                     <!-- Modal content -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -125,56 +132,62 @@
                     </div>
                 </div>
 
-                <table id="myTable ">
+                <table id="myTable">
                     <tr>
                         <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                        <th onclick="sortTable(0) ">Organization</th>
-                        <th onclick="sortTable(1) ">Availability</th>
-                        <th onclick="sortTable(2) ">Details</th>
+                        <th onclick="sortTable(0) ">Applicants</th>
+                        <th onclick="sortTable(1) ">Status</th>
+                        <th onclick="sortTable(2) ">Interview Results</th>
                         <th onclick="sortTable(3) "></th>
                         <!-- <th onclick="sortTable(4) ">Average Score</th>
                         <th onclick="sortTable(5) "></th> -->
                     </tr>
                     <tr>
-                        <td style="font-weight: bold">Best Buy</td>
+                        <td style="font-weight: bold">Jun</td>
                         <td>-</td>
                         <td>-</td>
                         <td>
-                            <span style="color: blue" id="myBtn ">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Bank of America</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn ">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Hershey's</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn ">View Applicant List</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">PepsiCo</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn ">View Applicant List</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+                            <span style="color: blue" id="myBtn">View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Stephanie</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Evan</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold">Jane</td>
+							<td>-</td>
+							<td>-</td>
+							<td>
+								<span style="color: blue" id="myBtn"
+									>View Interview Summary</span
+								>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 
-    <script src="script.js "></script>
-    <link rel="stylesheet " href="sortable.min.css " />
-    <script src="sortable.min.js "></script>
-</body>
-
+		<script src="script.js "></script>
+		<link rel="stylesheet " href="sortable.min.css " />
+		<script src="sortable.min.js "></script>
+	</body>
 </html>

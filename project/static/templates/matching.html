@@ -3,7 +3,7 @@
 
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet" />
@@ -12,10 +12,10 @@
 <body>
     <div class="container">
         <div class="topbar" style="display: flex; justify-content: space-between">
-            <img src="logo.png" style="margin-left: 100px; height: 50px; margin-top: 15px" />
+			<img src="{{ url_for('static', filename='images/logo.png') }}" style="margin-left: 100px; height: 50px; margin-top: 15px" />
             <p style="margin-right: 100px; display: flex; align-items: center">
                 Hi Ashley
-                <img src="arrow.png" style="height: 5px; margin-left: 10px" />
+				<img src="{{ url_for('static', filename='images/arrow.png') }}" style="height: 5px; margin-left: 10px" />
             </p>
         </div>
         <!-- <div class="sidebar">
@@ -28,31 +28,33 @@
         </div> -->
         <div class="content">
             <div class="tabs">
-                <div class="chevron" onclick="window.location.href='/frontend/applications.html'" style="background-color: #d2edf6">
+                <div class="chevron" onclick="window.location.href='/applications'">
                     <p>RECRUITING</p>
-                    <h1 style="color: blue">1216</h1>
+                    <h1>1216</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
+                <div class="chevron" onclick="window.location.href='/matching'" style="background-color: #d2edf6">
                     <p>MATCHING</p>
-                    <h1>150</h1>
+                    <h1 style="color: blue">150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/interview.html'">
+                <div class="chevron" onclick="window.location.href='/interview'">
                     <p>INTERVIEW</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/offer.html'">
+                <div class="chevron" onclick="window.location.href='/offer'">
                     <p>OFFERS</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/onboarding.html'">
+                <div class="chevron" onclick="window.location.href='/onboarding'">
                     <p>ONBOARDING</p>
                     <h1>150</h1>
                 </div>
             </div>
             <div class="tab-content">
-                <h1>Out of 1216 applicants, 1053 met eligibility requirements</h1>
+                <h1>
+                    Our matching algorithm matched 300 candidates to 30 organizations
+                </h1>
                 <p>
-                    Using cutoff score of 70 points, we have shortlisted 500 applicants
+                    As interviews progress and offers are made, the algorithm will continue to match candidates
                 </p>
                 <br />
                 <br />
@@ -69,7 +71,7 @@
 									margin: 2px;
 									height: 25px;
 								">
-								Eligible Applicants
+								Unfilled Organizations
 							</button>
                         <button style="
 									margin-right: 10px;
@@ -81,7 +83,7 @@
 									margin: 2px;
 									height: 25px;
 								">
-								All Applicants
+								All Organizations
 							</button>
                         <button style="
 									margin-right: 10px;
@@ -100,7 +102,7 @@
                         Using cutoff score of 70 points, we have shortlisted 500 applicants
                     </p> -->
                     <div style="display: flex; margin: 10px">
-                        <button style="
+                        <!-- <button style="
 									color: blue;
 									border-color: blue;
 									background-color: white;
@@ -109,7 +111,7 @@
 									margin-right: 10px;
 								">
 								<img src="ai.png" style="height: 15px" /> Turn on AI Scoring
-							</button>
+							</button> -->
                         <button style="
 									color: white;
 									background-color: blue;
@@ -117,14 +119,7 @@
 									border-radius: 10px;
 									padding: 10px;
 								">
-								<a
-									href="/frontend/matching.html"
-									style="text-decoration: none"
-									color="white"
-									a:visited="white"
-								>
-									Proceed to matching (0)
-								</a>
+								Send interview requests (150)
 							</button>
                     </div>
                 </div>
@@ -140,57 +135,53 @@
                 <table id="myTable">
                     <tr>
                         <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                        <th onclick="sortTable(0) ">Applicant</th>
-                        <th onclick="sortTable(1) ">Average Score</th>
-                        <th onclick="sortTable(2) ">Status</th>
+                        <th onclick="sortTable(0) ">Organization</th>
+                        <th onclick="sortTable(1) ">Availability</th>
+                        <th onclick="sortTable(2) ">Details</th>
                         <th onclick="sortTable(3) "></th>
+                        <!-- <th onclick="sortTable(4) ">Average Score</th>
+                        <th onclick="sortTable(5) "></th> -->
                     </tr>
                     <tr>
-                        <td style="font-weight: bold">Jun</td>
+                        <td style="font-weight: bold">Best Buy</td>
                         <td>-</td>
                         <td>-</td>
                         <td>
-                            <span style="color: blue" id="myBtn">View Applicant Details</span
-								>
-							</td>
-						</tr>
-						<tr>
-							<td style="font-weight: bold">Stephanie</td>
-							<td>-</td>
-							<td>-</td>
-							<td>
-								<span style="color: blue" id="myBtn"
-									>View Applicant Details</span
-								>
-							</td>
-						</tr>
-						<tr>
-							<td style="font-weight: bold">Evan</td>
-							<td>-</td>
-							<td>-</td>
-							<td>
-								<span style="color: blue" id="myBtn"
-									>View Applicant Details</span
-								>
-							</td>
-						</tr>
-						<tr>
-							<td style="font-weight: bold">Jane</td>
-							<td>-</td>
-							<td>-</td>
-							<td>
-								<span style="color: blue" id="myBtn"
-									>View Applicant Details</span
-								>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
+                            <span style="color: blue" id="myBtn">View Applicant List</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold">Bank of America</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <span style="color: blue" id="myBtn">View Applicant List</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold">Hershey's</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <span style="color: blue" id="myBtn">View Applicant List</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold">PepsiCo</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <span style="color: blue" id="myBtn">View Applicant List</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
-		<script src="script.js "></script>
-		<link rel="stylesheet " href="sortable.min.css " />
-		<script src="sortable.min.js "></script>
-	</body>
+    <script src="script.js "></script>
+    <link rel="stylesheet " href="sortable.min.css " />
+    <script src="sortable.min.js "></script>
+</body>
+
 </html>

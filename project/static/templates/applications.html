@@ -3,7 +3,7 @@
 
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet" />
@@ -12,10 +12,10 @@
 <body>
     <div class="container">
         <div class="topbar" style="display: flex; justify-content: space-between">
-            <img src="logo.png" style="margin-left: 100px; height: 50px; margin-top: 15px" />
+			<img src="{{ url_for('static', filename='images/logo.png') }}" style="margin-left: 100px; height: 50px; margin-top: 15px" />
             <p style="margin-right: 100px; display: flex; align-items: center">
                 Hi Ashley
-                <img src="arrow.png" style="height: 5px; margin-left: 10px" />
+				<img src="{{ url_for('static', filename='images/arrow.png') }}" style="height: 5px; margin-left: 10px" />
             </p>
         </div>
         <!-- <div class="sidebar">
@@ -28,33 +28,31 @@
         </div> -->
         <div class="content">
             <div class="tabs">
-                <div class="chevron" onclick="window.location.href='/frontend/applications.html'">
+                <div class="chevron" onclick="window.location.href='/applications'" style="background-color: #d2edf6">
                     <p>RECRUITING</p>
-                    <h1>1216</h1>
+                    <h1 style="color: blue">1216</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/matching.html'">
+                <div class="chevron" onclick="window.location.href='/matching'">
                     <p>MATCHING</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/interview.html'" style="background-color: #d2edf6">
+                <div class="chevron" onclick="window.location.href='/interview'">
                     <p>INTERVIEW</p>
-                    <h1 style="color: blue">150</h1>
+                    <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/offer.html'">
+                <div class="chevron" onclick="window.location.href='/offer'">
                     <p>OFFERS</p>
                     <h1>150</h1>
                 </div>
-                <div class="chevron" onclick="window.location.href='/frontend/onboarding.html'">
+                <div class="chevron" onclick="window.location.href='/onboarding'">
                     <p>ONBOARDING</p>
                     <h1>150</h1>
                 </div>
             </div>
             <div class="tab-content">
-                <h1>
-                    Our matching algorithm matched 300 candidates to 30 organizations
-                </h1>
+                <h1>Out of 1216 applicants, 1053 met eligibility requirements</h1>
                 <p>
-                    As interviews progress and offers are made, the algorithm will continue to match candidates
+                    Using cutoff score of 70 points, we have shortlisted 500 applicants
                 </p>
                 <br />
                 <br />
@@ -71,7 +69,7 @@
 									margin: 2px;
 									height: 25px;
 								">
-								Unfilled Organizations
+								Eligible Applicants
 							</button>
                         <button style="
 									margin-right: 10px;
@@ -83,7 +81,7 @@
 									margin: 2px;
 									height: 25px;
 								">
-								All Organizations
+								All Applicants
 							</button>
                         <button style="
 									margin-right: 10px;
@@ -102,16 +100,17 @@
                         Using cutoff score of 70 points, we have shortlisted 500 applicants
                     </p> -->
                     <div style="display: flex; margin: 10px">
-                        <!-- <button style="
-									color: blue;
-									border-color: blue;
-									background-color: white;
-									border-radius: 10px;
-									padding: 10px;
+							<button id="aiScoringButton" 
+								style="
+									color: blue; 
+									border-color: blue; 
+									background-color: white; 
+									border-radius: 10px; 
+									padding: 10px; 
 									margin-right: 10px;
 								">
-								<img src="ai.png" style="height: 15px" /> Turn on AI Scoring
-							</button> -->
+								<img src="{{ url_for('static', filename='images/arrow.png') }}" style="height: 5px; margin-left: 10px" />Turn on AI Scoring
+							</button>
                         <button style="
 									color: white;
 									background-color: blue;
@@ -119,7 +118,14 @@
 									border-radius: 10px;
 									padding: 10px;
 								">
-								Send offer letters (150)
+								<a
+									href="/frontend/matching.html"
+									style="text-decoration: none"
+									color="white"
+									a:visited="white"
+								>
+									Proceed to matching (0)
+								</a>
 							</button>
                     </div>
                 </div>
@@ -131,61 +137,57 @@
                         <p>Some text in the Modal..</p>
                     </div>
                 </div>
-
-                <table id="myTable">
-                    <tr>
-                        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                        <th onclick="sortTable(0) ">Applicants</th>
-                        <th onclick="sortTable(1) ">Status</th>
-                        <th onclick="sortTable(2) ">Interview Results</th>
-                        <th onclick="sortTable(3) "></th>
-                        <!-- <th onclick="sortTable(4) ">Average Score</th>
-                        <th onclick="sortTable(5) "></th> -->
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold">Jun</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <span style="color: blue" id="myBtn">View Interview Summary</span
-								>
-							</td>
-						</tr>
+				<table id="myTable">
+					<tr>
+						<!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+						<th onclick="sortTable(0)">Applicant</th>
+						<th onclick="sortTable(1)">Average Score</th>
+						<th onclick="sortTable(2)">Status</th>
+						<th onclick="sortTable(3)"></th>
+					</tr>
+					{% for applicant in applicants %}
+					<tbody>
 						<tr>
-							<td style="font-weight: bold">Stephanie</td>
-							<td>-</td>
-							<td>-</td>
+							<td style="font-weight: bold">{{ applicant.name }}</td>
+							<td>{{ applicant.average_score }}</td>
+							<td>{{ applicant.status }}</td>
 							<td>
-								<span style="color: blue" id="myBtn"
-									>View Interview Summary</span
-								>
+								<span style="color: blue" id="myBtn">View Applicant Details</span>
 							</td>
 						</tr>
-						<tr>
-							<td style="font-weight: bold">Evan</td>
-							<td>-</td>
-							<td>-</td>
-							<td>
-								<span style="color: blue" id="myBtn"
-									>View Interview Summary</span
-								>
-							</td>
-						</tr>
-						<tr>
-							<td style="font-weight: bold">Jane</td>
-							<td>-</td>
-							<td>-</td>
-							<td>
-								<span style="color: blue" id="myBtn"
-									>View Interview Summary</span
-								>
-							</td>
-						</tr>
-					</table>
+					</tbody>
+					{% endfor %}
+				</table>
 				</div>
 			</div>
 		</div>
-
+		<script>
+			// Add your JavaScript here, if needed
+			function sortTable(n) {
+				// Add your sorting logic here
+				// This is just a placeholder function for demonstration purposes
+				console.log('Sorting by column ' + n);
+			}
+		</script> 
+		<script>
+		// Add an event listener to the "Turn on AI Scoring" button
+			document.getElementById('aiScoringButton').addEventListener('click', function() {
+				// Send a POST request to the Flask backend when the button is clicked
+				fetch('/turn_on_ai_scoring', {
+					method: 'POST',
+				})
+				.then(response => {
+					if (response.ok) {
+						console.log('AI Scoring turned on successfully.');
+					} else {
+						console.error('Failed to turn on AI Scoring.');
+					}
+				})
+				.catch(error => {
+					console.error('An error occurred:', error);
+				});
+			});
+		</script>
 		<script src="script.js "></script>
 		<link rel="stylesheet " href="sortable.min.css " />
 		<script src="sortable.min.js "></script>
