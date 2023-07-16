@@ -28,9 +28,12 @@ def filter_csv_by_degree(input_csv_path, output_csv_path, keyword_bank):
     # Combine the 'why_edf', 'why_sus', and 'why_cc' columns into a single column
     df_filtered['all_responses'] = df_filtered['why_edf'] + ' ' + df_filtered['why_sus'] + ' ' + df_filtered['why_cc']
 
+    # Create new columns for keywords in each 'why' column
+    for col in ['why_edf', 'why_sus', 'why_cc']:
+        df[col + '_keywords'] = df[col].apply(lambda text: [word for word in keyword_bank if word in text.lower()])
+
     # Compute the summary for the combined responses and add '_summary' to the new column name
     df_filtered['answer_summary'] = df_filtered['all_responses'].apply(compute_summary)
-
 
     # Drop the intermediate 'all_responses' column
     df_filtered.drop(columns=['all_responses'], inplace=True)
